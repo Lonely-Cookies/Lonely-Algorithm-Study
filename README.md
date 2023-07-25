@@ -16,6 +16,8 @@ PR 이름 :  [알고리즘 문제 플랫폼]_[문제 번호]_[본인 이름]
 문제 번호가 없는 플랫폼이라면, [문제 이름]으로 대체 합니다
 ```
 ### 예시
+![500](https://github.com/Lonely-Cookies/Lonely-Algorithm-Study/assets/37897508/59277024-135c-4f40-980f-5b65a7ebaeb5)
+
 - 프로그래머스 : Programmers_1028_고범수
 - 백준 : Baekjoon_1028_고범수
 
