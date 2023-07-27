@@ -1,3 +1,5 @@
+# N과 M 문제 (1)
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 int n,m;
@@ -30,3 +32,4 @@ int main(){
     dfs(0); //0부터 시작
     return 0;
 }
+```
