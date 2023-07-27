@@ -1,7 +1,6 @@
 # 고독한 알고리즘 스터디
 <img src="https://github.com/Lonely-Cookies/Lonely-Algorithm-Study/assets/37897508/87bac4ae-bfb9-43a7-a1f6-ff138f8d66b1" width="500">
 
-쿠키즈 간 서로 공부하고, 으쌰으쌰! 하며 알고리즘 공부를 하기 위한 Repository입니다
 - **매주 3문제씩 풀자!**
 - Programming Language : **자유**
 ## Team Members
