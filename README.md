@@ -29,7 +29,7 @@
 ## PR 규칙
 - PR 이름 :  [자신의 이름]
 - Merge는 일주일에 한 번합니다!
-## file 이름 예시
+## File 이름 예시
 - 프로그래머스 : Programmers_[문제 번호]
 - 백준 : Baekjoon-[문제 번호]
 
