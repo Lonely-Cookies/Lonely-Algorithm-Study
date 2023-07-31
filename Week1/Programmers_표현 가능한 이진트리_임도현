@@ -1,0 +1,77 @@
+def solution(numbers):
+    binary_numbers = []
+    for number in numbers:
+        binary_number = format(number, 'b')
+        binary_numbers.append(binary_number)
+    
+    # print(binary_numbers)
+    tree_len = []
+    
+    for binary_number in binary_numbers:
+        tree_len.append(cal_tree_node(binary_number))
+        
+    adjusted_binary_numbers = []
+    
+    for i in range(len(binary_numbers)):
+        adj_bin_num = "0" * (tree_len[i]-len(binary_numbers[i])) + binary_numbers[i]
+        adjusted_binary_numbers.append(adj_bin_num)
+    
+    # print(adjusted_binary_numbers)
+    
+    reverse_bin = []
+    
+    for binary_number in adjusted_binary_numbers:
+        bin_list = list(binary_number)
+        bin_list.reverse()
+        reverse_bin.append(bin_list)
+    # print(reverse_bin)
+    answer_bool = []
+    
+    for i in range(len(reverse_bin)):
+        length = len(reverse_bin[i])
+        result = is_it_possible((length-1)//2, 0, length-1, length, reverse_bin[i])
+        answer_bool.append(result)
+    answer = []
+    for b in answer_bool:
+        if b:
+            answer.append(1)
+        else:
+            answer.append(0)
+    #test_list = ['1', '0', '1']
+    #r = is_it_possible(1,0,2,3,test_list);
+    #print(r)
+    return answer
+
+def convert_bin_to_dec(binary_number):
+    binary_number = "0b" + binary_number
+    dec_number = int(binary_number, 2)
+    return dec_number
+
+def cal_tree_node(binary_number):
+    num_length = len(binary_number)
+    if 1 == num_length:
+        return 1
+    elif 1< num_length <= 3:
+        return 3
+    elif 3 < num_length <= 7:
+        return 7
+    elif 7 < num_length <= 15:
+        return 15
+    elif 15 < num_length <=31:
+        return 31
+    elif 31< num_length <= 63:
+        return 63
+    
+def is_it_possible(root, left, right, length, binary_number):
+    if  left < right:
+        left_child = (root+left)//2
+        right_child = (root+right)//2 + 1
+        if binary_number[root] == '0' and (binary_number[left_child] == '1' or binary_number[right_child] == '1'):
+            return False
+        else:
+            result_left = is_it_possible(left_child, left, root-1, length, binary_number)
+            result_right = is_it_possible(right_child, root+1, right, length, binary_number)
+            return (result_left and result_right)
+    else:
+        return True
+                    

@@ -1,0 +1,69 @@
+# 해당 함수는 input으로 들어온 트리에 index리스트를 통하여 이전에 참조했던 경로를 저장한다.
+# 문제의 조건에 맞게 현재 길로 연결된 자식노드 다음으로 큰 길로 연결 후 이전 길은 True로 변경하여 길을 끊는다.
+# 모든 자식노드로 향하는 길이 True 가 되었다면 다시 False로 초기화 시켜 가장 작은 자식노드를 참조하게 한다.
+
+def leaf_node_index(tree_list, index_list):
+    leaf_node_parser = tree_list[1]
+    while leaf_node_parser:
+        index = 0
+        while index < len(leaf_node_parser) and index_list[leaf_node_parser[index]] is True:
+            index += 1
+        if index == len(leaf_node_parser):
+            for i in range(index):
+                index_list[leaf_node_parser[i]] = False
+            index = 0
+        if index < len(leaf_node_parser):
+            index_list[leaf_node_parser[index]] = True
+        leaf_node, leaf_node_parser = leaf_node_parser[index], tree_list[leaf_node_parser[index]]
+    return leaf_node
+
+
+def solution(edges, target):
+    answer = []
+    tree_len = len(edges)  # Tree의 특성 상 edge+1이 node의 개수 이다. 따라서 tree를 표현하기위해서는 tree_len에 +1을 해주어야 한다.
+    tree_list = [[] for i in range(tree_len+2)]  # 그런데 node의 번호가 1부터 시작하므로 +1을 더하여 tree_len+2를 해준다.
+    target_counter = [0 for i in range(tree_len+2)]
+    index_list = [False for i in range(tree_len+2)]
+    counter_index_list = [False for i in range(tree_len + 2)]
+    counter_index_list[0] = True
+    order_of_leaf_node = []
+    for edge in edges:
+        tree_list[edge[0]].append(edge[1])
+        tree_list[edge[0]].sort()
+    leaf_node = leaf_node_index(tree_list, index_list)
+    order_of_leaf_node.append(leaf_node)
+    # target은 0부터 시작하는 list이다. 따라서 리프 노드번호가 1씩 밀리므로 -1을 해준다.
+    # target의 맨 앞에 0을 추가하는 것도 좋아보인다.
+    target_copied = [0] + target
+    target = [0] + target
+    while target_counter[leaf_node] <= target_copied[leaf_node]:
+        target_counter[leaf_node] += 1
+        true_counter = 0
+        for i, target_value in enumerate(target_copied):
+            if target_counter[i] <= target_value <= 3*target_counter[i]:
+                counter_index_list[i] = True
+        for i in counter_index_list:
+            if i:
+                true_counter += 1
+        if true_counter == len(counter_index_list):
+            break
+        leaf_node = leaf_node_index(tree_list, index_list)
+        order_of_leaf_node.append(leaf_node)
+    print(target_counter)
+    print(order_of_leaf_node)
+
+    for i in range(len(target_counter)):
+        if target_counter[i] != 0:
+            if target[i]/target_counter[i] > 3 or target[i]/target_counter[i] < 1:
+                return [-1]
+
+    while order_of_leaf_node:
+        index = order_of_leaf_node.pop()
+        one_or_two_or_three = target_copied[index] - target_counter[index] + 1
+        if one_or_two_or_three > 3:
+            one_or_two_or_three = 3
+        target_counter[index] -= 1
+        target_copied[index] -= one_or_two_or_three
+        answer.append(one_or_two_or_three)
+    answer.reverse()
+    return answer
