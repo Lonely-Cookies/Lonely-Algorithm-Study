@@ -1,0 +1,8 @@
+-- 코드를 입력하세요
+SELECT b.category AS category, sum(bs.sales) AS total_sales
+FROM book_sales bs, book b
+WHERE bs.sales_date BETWEEN '2022-01-01 00:00:00' AND '2022-01-31 23:59:59' AND b.book_id = bs.book_id
+GROUP BY b.category
+ORDER BY b.category ASC
+
+# MySQL을 활용한 문제가 있길래 신기해서 풀어보았습니다.
