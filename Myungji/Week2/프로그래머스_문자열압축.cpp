@@ -19,7 +19,7 @@ int solution(string s) {
         string text="";
         before=token[0]; //비교할 문자열
         int cnt=1;
-        for(int index=1;index<token.size();index++){
+        for(int index=1;index<token.size();index++){ //겹치면 숫자로 더해주기
             if(token[index].compare(before)==0) //앞과 같으면
                 cnt++;
             else{ //앞 문자와 다르면
@@ -38,6 +38,6 @@ int solution(string s) {
     if(len.empty()) //비어있으면 전체 문자열 길이로 저장
         len.push_back(s.size());
     //정답 반환
-    answer = *min_element(len.begin(), len.end());
+    answer = *min_element(len.begin(), len.end()); //가장 작은 숫자 반환
     return answer;
 }
