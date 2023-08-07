@@ -26,7 +26,7 @@
 
   </tr>
 <table>
-  latteisacat 
+
 ## Get It Start
 1. [Lonely-Algorithm-Study]를 fork 한다
 2. 각자 fork한 Repo에서 자신의 이름으로 폴더를 만든다
