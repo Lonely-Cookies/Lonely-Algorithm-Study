@@ -1,0 +1,50 @@
+from collections import deque
+
+# https://wayhome25.github.io/python/2017/06/14/time-complexity/
+# 생각보다 list의 insert나 pop 연산이 시간을 정말 많이 잡아먹는다는 것을
+# 알 수 있는 문제였다.
+# 그도 그럴게 메모리 상에 연속으로 존재하는 자료형이면
+# 자료가 하나 빠지거나 생길 때 마다 메모리를 옆으로 밀어야 하니 O(N)이 걸리는게 당연하다.
+# 그래서 deque를 사용하였다.
+def solution(rc, operations):
+    
+    length = len(rc)
+    row_list = deque(deque(rc[i][1:-1]) for i in range(length))
+    
+    first_column = deque(rc[i][0] for i in range(length))
+    last_column = deque(rc[i][-1] for i in range(length))
+    
+    for operation in operations:
+        if operation[0] == "R":
+            if not row_list[0]:
+                temp_first_column = first_column.popleft()
+                temp_last_column = last_column.pop()
+                
+                last_column.appendleft(temp_first_column)
+                first_column.append(temp_last_column)
+            else:
+                temp_first_row = row_list[0].pop()
+                temp_last_row = row_list[-1].popleft()
+                temp_first_column = first_column.popleft()
+                temp_last_column = last_column.pop()
+
+                row_list[0].appendleft(temp_first_column)
+                last_column.appendleft(temp_first_row)
+                row_list[-1].append(temp_last_column)
+                first_column.append(temp_last_row)
+
+        else :
+                temp = row_list.pop()
+                row_list.appendleft(temp)
+                temp_first = first_column.pop()
+                temp_last = last_column.pop()
+                first_column.appendleft(temp_first)
+                last_column.appendleft(temp_last)
+
+    answer = []
+    for i in range(length):
+        answer.append([])
+        answer[i].append(first_column[i])
+        answer[i].extend(row_list[i])
+        answer[i].append(last_column[i])
+    return answer
