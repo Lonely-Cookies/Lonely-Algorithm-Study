@@ -38,7 +38,6 @@ void dfs(int depth, int num, int n)
 	}
 }
 
-
 int main()
 {
 	std::ios::sync_with_stdio(false);
