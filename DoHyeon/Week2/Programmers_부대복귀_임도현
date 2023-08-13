@@ -1,0 +1,30 @@
+from collections import deque
+
+def solution(n, roads, sources, destination):
+    answer = []
+    # (총 지역의 수, 경로, 부대원들이 위치한 지역, 목적지)
+    # 각 경로당 시간은 똑같이 1씩 걸림... 그러니까 최단거리 알고리즘을 쓸 필요가 없다?
+    # 생각해보니 아닌 것 같다. 그냥 얌전히 다익스트라 알고리즘으로 풀자.
+    # 누구보다 크네 작네 비교할 필요는 없어보인다. 어차피 전부 거리가 1이기 때문에
+    # 이전 값이 max 가 아니라면 굳이 해당 값을 업데이트 할 필요가 없어진다.
+    MAX_INT = 4294967295
+    adjacent_list = [[] for _ in range(n+1)] # 직관적으로 풀기 위해 0이 아닌 1로 시작하는 인덱스로 두고 시작
+    cost = [MAX_INT for _ in range(n+1)]
+    cost[destination] = 0
+    for i,j in roads:
+        adjacent_list[i].append(j)
+        adjacent_list[j].append(i)
+    
+    q = deque([destination])
+    while q:
+        x = q.popleft()
+        for node in adjacent_list[x]:
+            if cost[node] == MAX_INT:
+                q.append(node)
+                cost[node] = cost[x]+1
+    for source in sources:
+        if cost[source] == MAX_INT:
+            answer.append(-1)
+        else:
+            answer.append(cost[source])
+    return answer
