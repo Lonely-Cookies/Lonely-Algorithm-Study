@@ -1,0 +1,22 @@
+N,r,c = map(int, input().split())
+def solution(r,c,depth,index):
+    if depth == 1:
+        return index
+    else:
+        depth = depth//2
+        row = r//depth
+        column = c//depth
+        weigth = 0
+        if row == 0 and column == 0:
+            weigth = 1
+        elif row == 0 and column == 1:
+            weigth = 2
+        elif row == 1 and column == 0:
+            weigth = 3
+        else:
+            weigth = 4
+        index = index + (weigth-1)*depth*depth
+        r = r%depth
+        c = c%depth
+        return solution(r,c,depth,index)
+print(solution(r,c,2**N,0))

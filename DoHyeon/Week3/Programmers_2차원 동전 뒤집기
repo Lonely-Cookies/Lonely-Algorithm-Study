@@ -1,0 +1,55 @@
+def solution(beginning, target):
+    # beginning은 처음 동전들의 초기 상태(2차원 리스트)
+    # target은 목표 상태
+    answer = 0
+    if beginning == target:
+        return 0
+    
+    size_of_row = len(beginning)
+    size_of_column = len(beginning[0])
+    
+    diff_matrix = [[0 for _ in range(size_of_column)] for __ in range(size_of_row)]
+    for i in range(size_of_row):
+        for j in range(size_of_column):
+            if beginning[i][j] != target[i][j]:
+                diff_matrix[i][j] = 1
+    pattern = diff_matrix[0].copy()
+    diff_matrix_2 = [[] for _ in range(size_of_row)]
+    for i in range(size_of_row):
+        diff_matrix_2[i] = diff_matrix[i].copy()
+        
+    count_1 = 0
+    count_2 = 0
+    for row in diff_matrix:
+        if row == pattern:
+            row_flip(row)
+            count_1 += 1
+    for row in diff_matrix_2:
+        if row != pattern:
+            row_flip(row)
+            count_2 += 1
+    v_1 = verify(diff_matrix, size_of_row, size_of_column)
+    v_2 = verify(diff_matrix_2, size_of_row, size_of_column)
+    if not v_1 or not v_2:
+        return -1
+    count_1 += diff_matrix[0].count(1)
+    count_2 += diff_matrix_2[0].count(1)
+    answer = min(count_1, count_2)
+    return answer
+
+def row_flip(row):
+    for i in range(len(row)):
+        if row[i] == 0:
+            row[i] = 1
+        elif row[i] == 1:
+            row[i] = 0
+
+def verify(matrix, size_of_row, size_of_column):
+    for j in range(size_of_column):
+        standard = matrix[0][j]
+        for i in range(size_of_row):
+            if matrix[i][j] != standard:
+                return False
+    return True
+    
+    
