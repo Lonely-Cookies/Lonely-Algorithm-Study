@@ -22,7 +22,7 @@
 
 ## 코드
 
-### 내가 푼 코드 ( 정답 ) : 시간 400ms
+### 내가 푼 코드 ( 정답 )
 
 ```python
 from collections import deque
