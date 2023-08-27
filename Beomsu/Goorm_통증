@@ -1,0 +1,16 @@
+## 통증
+![](https://i.imgur.com/hw99OWQ.png)
+```python
+N= int(input())
+cnt = 0
+for x in [14,7,1]:
+	if N%x==N:
+		continue
+	cnt+=N//x
+	N%=x
+print(cnt)
+```
+
+처음엔 while 문 돌려서 구현했더니, 시간 초과가 발생해서, 좀 더 단순하게 바꿨다
+나머지가 계산 전후로 동일하다면 자신보다 큰 수 이므로 넘어가게 하는건데, 이렇게 하면 무조건 0이하로 통증 수치가 내려갈 일이 없다
+일거양득!
