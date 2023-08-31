@@ -27,7 +27,7 @@ def calc_dp(i, j):
     dist_1 = 0
     dist_2 = 0
     next_point = max(i, j) + 1
-    # 다음으로 방분해야 할 점은 이전 경찰차가 간 번호 둘 중 더 큰 번호 + 1이다.
+    # 다음으로 방문해야 할 점은 이전 경찰차가 간 번호 둘 중 더 큰 번호 + 1이다.
 
     if i == 0:
         dist_1 = cal_distance((1, 1), points[next_point])
