@@ -1,0 +1,25 @@
+# 문제
+
+![](https://i.imgur.com/4wFmpdl.png)
+
+# 풀이
+```python
+N, K = map(int, input().split())
+input_fruits = [tuple(map(int, input().split())) for _ in range(N)]
+
+# 단가(satisfaction/price)가 높은 순으로 정렬
+sorted_fruits = sorted(input_fruits, key=lambda x: x[1] / x[0], reverse=True)
+
+total_satisfaction = 0  # 총 포만감
+for price, satisfaction in sorted_fruits:
+	if K >= price:
+			# 현재 가진 돈으로 과일을 살 수 있으면 구매  
+		total_satisfaction += satisfaction
+		K	-=price
+	else:
+		per = satisfaction//price
+		total_satisfaction += per *K
+		break
+
+print(total_satisfaction)
+```
